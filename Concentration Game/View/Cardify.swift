@@ -7,8 +7,21 @@
 
 import SwiftUI
 
-struct Cardify: ViewModifier {
-    let isFaceUp: Bool
+struct Cardify: Animatable, ViewModifier {
+    var isFaceUp: Bool {
+        rotation < 90
+    }
+    
+    var animatableData: Double {
+        get { rotation }
+        set { rotation = newValue }
+    }
+    
+    var rotation: Double
+    
+    init(isFaceUp: Bool) {
+        rotation = isFaceUp ? 0 : 180
+    }
     
     func body(content: Content) -> some View {
         GeometryReader { geometry in
@@ -16,11 +29,12 @@ struct Cardify: ViewModifier {
                 if isFaceUp {
                     RoundedRectangle(cornerRadius: cornerRadius(for: geometry.size)).fill(.white)
                     RoundedRectangle(cornerRadius: cornerRadius(for: geometry.size)).stroke()
-                    content
                 } else {
                     RoundedRectangle(cornerRadius: cornerRadius(for: geometry.size))
                 }
+                content.opacity(isFaceUp ? 1 : 0)
             }
+            .rotation3DEffect(Angle(degrees: rotation), axis: (0, 1, 0))
         }
     }
     

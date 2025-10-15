@@ -80,6 +80,12 @@ struct ConcentrationGame<CardContent> where CardContent: Equatable {
         
         // MARK: - Computed Properties
         
+        var bonusRemainingPercent: Double {
+            (bonusTimeLimit > 0 && bonusTimeRemaining > 0)
+            ? bonusTimeRemaining / bonusTimeLimit
+            : 0
+        }
+        
         var bonusTimeRemaining: TimeInterval {
             max(0, bonusTimeLimit - faceUpTime)
         }
@@ -101,12 +107,6 @@ struct ConcentrationGame<CardContent> where CardContent: Equatable {
         }
         
         // MARK: - Private Helpers
-        
-        private var bonusRemainingPercent: Double {
-            (bonusTimeLimit > 0 && bonusTimeRemaining > 0)
-            ? bonusTimeRemaining / bonusTimeLimit
-            : 0
-        }
         
         private var bonusScore: Int {
             Int(bonusRemainingPercent * Score.bonusFactor)
