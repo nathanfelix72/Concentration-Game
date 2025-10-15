@@ -14,7 +14,7 @@ extension Array where Element: Identifiable {
                 return index
             }
         }
-        
+
         return nil
     }
 }
