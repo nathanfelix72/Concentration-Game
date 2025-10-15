@@ -11,7 +11,7 @@ import SwiftUI
     
     // MARK: - Properties
     
-    static let emojis = ["❤️", "💎", "🍎", "⚽️", "🚗", "🐶", "🌟", "🎵", "🍔", "📚", "✈️", "🏀"]
+    static let emojis = ["❤️", "💎", "🍎", "⚽️", "🚗", "🐶"]
     
     private var game = createGame()
     
@@ -25,8 +25,16 @@ import SwiftUI
         game.cards
     }
     
+    var score: Int {
+        game.score
+    }
+    
     // MARK: - User Intent
     func choose(_ card: ConcentrationGame<String>.Card) {
         game.choose(card: card)
+    }
+    
+    func newGame() {
+        game = EmojiConcentrationGame.createGame()
     }
 }
